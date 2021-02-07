@@ -2,15 +2,14 @@
 
 namespace Models;
 
-
 use PDO;
 
-class Card extends Model {
+class Board extends Model {
 
-    protected int $id;
-    protected string $title;
-    protected string $description;
-    protected int $liste_id;
+
+  protected int $id;
+  protected string $title;
+  protected string $description;
 
     /**
      * @return int
@@ -60,20 +59,5 @@ class Card extends Model {
         $this->description = $description;
     }
 
-    /**
-     * @return int
-     */
-    public function getListeId()
-    {
-        return $this->liste_id;
-    }
-
-    /**
-     * @param int $liste_id
-     */
-    public function setListeId($liste_id): void
-    {
-        $this->liste_id = $liste_id;
-    }
 
 }

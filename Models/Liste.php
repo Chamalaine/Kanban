@@ -5,12 +5,12 @@ namespace Models;
 
 use PDO;
 
-class Card extends Model {
+class Liste extends Model {
 
     protected int $id;
-    protected string $title;
+    protected string $titre;
     protected string $description;
-    protected int $liste_id;
+    protected int $id_tableau;
 
     /**
      * @return int
@@ -31,17 +31,17 @@ class Card extends Model {
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitre()
     {
-        return $this->title;
+        return $this->titre;
     }
 
     /**
-     * @param string $title
+     * @param string $titre
      */
-    public function setTitle($title): void
+    public function setTitre($titre): void
     {
-        $this->title = $title;
+        $this->titre = $titre;
     }
 
     /**
@@ -61,19 +61,20 @@ class Card extends Model {
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getListeId()
+    public function getIdTableau()
     {
-        return $this->liste_id;
+        return $this->id_tableau;
     }
 
     /**
-     * @param int $liste_id
+     * @param int $id_tableau
      */
-    public function setListeId($liste_id): void
+    public function setIdTableau($id_tableau): void
     {
-        $this->liste_id = $liste_id;
+        $this->id_tableau = $id_tableau;
     }
+
 
 }

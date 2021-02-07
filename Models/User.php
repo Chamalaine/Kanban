@@ -3,6 +3,7 @@
 namespace Models;
 
 use DateTime;
+use PDO;
 
 class User extends Model {
 

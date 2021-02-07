@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7828e2c29b81948c5fc13edb63c4f6ae515109ae',
+    'reference' => '7556e3ee0c8fc75724622a2966c6bb9ac5522961',
     'name' => '33651/kanban',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7828e2c29b81948c5fc13edb63c4f6ae515109ae',
+      'reference' => '7556e3ee0c8fc75724622a2966c6bb9ac5522961',
     ),
   ),
 );

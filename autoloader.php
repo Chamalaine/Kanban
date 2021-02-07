@@ -12,4 +12,6 @@ require_once 'Controllers/LoginController.php';
 // Models Loader
 require_once 'Models/Model.php';
 require_once 'Models/User.php';
-require_once 'Models/Tableau.php';
+require_once 'Models/Board.php';
+require_once 'Models/Liste.php';
+require_once 'Models/Card.php';

@@ -17,9 +17,10 @@ if(isset($_GET['url'])){
 $controllerName = ucfirst(array_shift($url)).'Controller';
 $methodName = strtolower(array_shift($url));
 
-$test = new LoginController();
+$test = new LoginController;
 var_dump($test);
 var_dump($controllerName);
+var_dump(class_exists($controllerName));
 $controller = new $controllerName;
 
 
