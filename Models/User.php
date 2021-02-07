@@ -6,7 +6,7 @@ use DateTime;
 use PDO;
 
 class User extends Model {
-
+    protected string $table = 'user';
 
     protected int $id;
     protected string $email;
@@ -15,6 +15,19 @@ class User extends Model {
     protected DateTime $register_date;
     protected DateTime $last_connect;
     protected bool $confirmed;
+
+
+
+    public function findUser($email){
+        $req = $this->db()->prepare("SELECT * FROM {$this->getTable()} WHERE email = :email");
+        $req->execute([
+            ':email' => $email,
+        ]);
+        $this->closeConnection();
+
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * @return INT

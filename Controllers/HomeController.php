@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Models\Note;
+use Models\Board;
 
 class HomeController extends Controller {
 
@@ -15,11 +15,11 @@ class HomeController extends Controller {
   // "Convention" Method par défaut d'appel d'un controleur
   public function index()
   {
-    $note = new Note();
-    $notes = $note->userNotes($this->getCurrentUserId());
+    $board = new Board();
+    $boards = $board->userBoard($this->getCurrentUserId());
 
     $this->view('home.php', [
-      'notes' => $notes,
+      'boards' => $boards,
     ]);
   }
 

@@ -7,7 +7,7 @@ const APP_BASE_PATH = __DIR__;
 require_once 'Controllers/Controller.php';
 require_once 'Controllers/IndexController.php';
 require_once 'Controllers/HomeController.php';
-require_once 'Controllers/LoginController.php';
+require_once 'Controllers/SecurityController.php';
 
 // Models Loader
 require_once 'Models/Model.php';

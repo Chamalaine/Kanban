@@ -6,8 +6,8 @@ use PDO;
 use PDOException;
 
 class Model {
-  protected PDO $db;
-  protected $table;
+  protected  $db;
+  protected string $table;
 
   public function db()
   {

@@ -5,6 +5,7 @@ namespace Models;
 use PDO;
 
 class Board extends Model {
+    protected string $table = 'tableau';
 
 
   protected int $id;

@@ -6,6 +6,7 @@ namespace Models;
 use PDO;
 
 class Card extends Model {
+    protected string $table = 'carte';
 
     protected int $id;
     protected string $title;

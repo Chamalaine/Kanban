@@ -1,27 +1,25 @@
 <?php
 
 // Autoloader de composer, fichier pour le modifier : composer.json
-use Controllers\LoginController;
+use Controllers\SecurityController;
 
 require'vendor/autoload.php';
 // Load App
 require_once 'autoloader.php';
 
 $url= '';
-
-if(isset($_GET['url'])){
-
+var_dump($_GET['url']);
+if(isset($_GET['url']) && !empty($_GET['url'])){
     $url = explode('/', $_GET['url']);
+
+    $controllerName = "Controllers\\".ucfirst(array_shift($url)).'Controller';
+    $methodName = strtolower(array_shift($url));
+    $controller = new $controllerName;
+
+
+    $controller->$methodName();
 }
 
-$controllerName = ucfirst(array_shift($url)).'Controller';
-$methodName = strtolower(array_shift($url));
-
-$test = new LoginController;
-var_dump($test);
-var_dump($controllerName);
-var_dump(class_exists($controllerName));
-$controller = new $controllerName;
-
-
-var_dump($controller);
+else{
+    header("Location: Views/landing.php");
+}
