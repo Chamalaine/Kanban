@@ -16,13 +16,13 @@
 
       <form action="http://localhost/kanlo/security/connect" method="post">
           <label for="email"> Email</label>
-          <input name="email" type="text" id="password">
+          <input name="email" type="text" id="email">
 
           <label for="password"> Password</label>
           <input name="password" type="text" id="password">
-            <input type="submit" value="Connexion">
+          <input type="submit" value="Connexion">
       </form>
-
+      <a href="http://localhost/kanlo/security/forgotten">Oubli mot de passe</a>
   </main>
 
   <?php require_once 'layout/footer.php'; ?>

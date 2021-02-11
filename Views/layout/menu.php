@@ -7,7 +7,7 @@
       <a href="http://localhost/kanlo/security/connect">Connexion</a>
     </li>
     <li>
-      <a href="home.php">Home</a>
+      <a href="http://localhost/kanlo/security/register">Inscription</a>
     </li>
   </ul>
 </nav>

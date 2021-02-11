@@ -15,6 +15,7 @@ class User extends Model {
     protected DateTime $register_date;
     protected DateTime $last_connect;
     protected bool $confirmed;
+    protected string $token;
 
 
 
@@ -26,6 +27,58 @@ class User extends Model {
         $this->closeConnection();
 
         return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function createUser($email, $password, $pseudo){
+        $req = $this->db()->prepare("INSERT INTO {$this->getTable()}
+        (email, password, pseudo, register_date)  
+        VALUES (:email, 
+        :password, 
+        :pseudo,
+        now()
+        )");
+        $req->execute([
+            ':email' => $email,
+            ':password' =>$password,
+            ':pseudo' => $pseudo
+        ]);
+
+        $this->closeConnection();
+
+
+    }
+
+    public function insertToken($id, $token){
+
+        $req = $this->db()->prepare("UPDATE {$this->getTable()} SET token = :token WHERE id = :id");
+        $req->execute([
+            ':token' => $token,
+            ':id' => $id,
+        ]);
+
+        $this->closeConnection();
+    }
+
+    public function findToken($token){
+
+        $req = $this->db()->prepare("SELECT * FROM {$this->getTable()} WHERE token = :token");
+        $req->execute([
+            ':token' => $token,
+        ]);
+        $this->closeConnection();
+
+        return $req->fetch(PDO::FETCH_ASSOC);
+
+    }
+
+    public function changePassword($id, $password){
+        $req = $this->db()->prepare("UPDATE {$this->getTable()} SET password = :password WHERE id = :id");
+        $req->execute([
+            ':password' => $password,
+            ':id' => $id,
+        ]);
+
+        $this->closeConnection();
     }
 
 
@@ -139,5 +192,21 @@ class User extends Model {
     public function setConfirmed($confirmed): void
     {
         $this->confirmed = $confirmed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token): void
+    {
+        $this->token = $token;
     }
 }
