@@ -8,7 +8,7 @@ require'vendor/autoload.php';
 require_once 'autoloader.php';
 
 $url= '';
-var_dump($_GET['url']);
+
 if(isset($_GET['url']) && !empty($_GET['url'])){
     $url = explode('/', $_GET['url']);
 

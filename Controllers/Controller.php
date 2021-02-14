@@ -7,7 +7,10 @@ class Controller {
   const VIEW_PATH = '/Views/';
 
   // Page de redirection si non connecté
-  const REDIRECT_GUEST = 'login.php';
+  const REDIRECT_GUEST = 'connect';
+
+  // Page de redirection si non connecté
+    const REDIRECT_USER = 'index';
 
   // Détermine si la session a déjà été "start"
   static protected $session = false;
@@ -35,6 +38,15 @@ class Controller {
       exit();
     }
   }
+
+    protected function notAuth()
+    {
+        var_dump("hello");
+        if ( $this->isAuth() ) {
+            header('Location: '.self::REDIRECT_USER);
+            exit();
+        }
+    }
 
   protected function isAuth()
   {

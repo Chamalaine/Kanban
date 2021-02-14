@@ -19,7 +19,7 @@ class User extends Model {
 
 
 
-    public function findUser($email){
+    public function findUserByEmail($email){
         $req = $this->db()->prepare("SELECT * FROM {$this->getTable()} WHERE email = :email");
         $req->execute([
             ':email' => $email,
@@ -28,6 +28,17 @@ class User extends Model {
 
         return $req->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function findUserById($id){
+        $req = $this->db()->prepare("SELECT * FROM {$this->getTable()} WHERE id = :id");
+        $req->execute([
+            ':id' => $id,
+        ]);
+        $this->closeConnection();
+
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
 
     public function createUser($email, $password, $pseudo){
         $req = $this->db()->prepare("INSERT INTO {$this->getTable()}

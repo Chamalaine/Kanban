@@ -8,7 +8,9 @@
 </head>
 <body>
   <header>
-    <?php require_once 'layout/menu.php'; ?>
+    <?php require_once 'layout/menu.php';
+
+    var_dump(session_status());?>
   </header>
 
   <main>
