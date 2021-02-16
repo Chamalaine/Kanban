@@ -15,10 +15,7 @@ class SecurityController extends Controller {
   // "Convention" Method par défaut d'appel d'un controleur
   public function index()
   {
-    $this->view('login.php', [
-      'test' => 'Mon login !',
-      'var' => 45,
-    ]);
+    $this->view('connect.php');
   }
 
   //Connection
@@ -126,7 +123,7 @@ class SecurityController extends Controller {
 
               $email = $_POST['email'];
               $user = new User();
-              $checkUser = $user->findUser($email);
+              $checkUser = $user->findUserByEmail($email);
 
               if ($checkUser != false) {
 
@@ -208,21 +205,19 @@ class SecurityController extends Controller {
   public function changePassword(){
 
       if(session_status() === PHP_SESSION_NONE ) {
+
           session_start();
           if(isset($_POST["oldPass"]) && isset($_POST["newPass"])){
-
-
 
               if($_POST["user"]===$_SESSION["id"]){
                   $user = new User();
 
                   $userFind = $user->findUserById($_POST["user"]);
 
-
-
                   if (password_verify($_POST['oldPass'], $userFind["password"]) === true) {
 
-                      $user->changePassword($_POST["user"], $_POST["newPass"]);
+                      $password = password_hash($_POST["newPass"], PASSWORD_DEFAULT);
+                      $user->changePassword($_POST["user"], $password);
 
                       $this->view('home.php', [
                           "message" => "Mot de passe modifié",

@@ -4,13 +4,16 @@
 
       if(session_status() === PHP_SESSION_ACTIVE){
           ?>
-
+          <li>
+              <a href="http://localhost/kanlo/home/dashboard/<?php echo $_SESSION['id']; ?>">Dashboard</a>
+          </li>
           <li>
               <a href="http://localhost/kanlo/home/profile/<?php echo $_SESSION['id']; ?>">Profile</a>
           </li>
           <li>
               <a href="http://localhost/kanlo/security/disconnect">Deconnexion</a>
           </li>
+
 
       <?php } else { ?>
           <li>

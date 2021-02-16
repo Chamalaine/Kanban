@@ -12,6 +12,7 @@
 
   <main>
     <h4>Acceuil après connexion</h4>
+      <h3>Bienvenu sur Kanlo ! </h3>
   </main>
 
   <?php require_once 'layout/footer.php'; ?>

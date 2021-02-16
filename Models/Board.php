@@ -12,6 +12,37 @@ class Board extends Model {
   protected string $title;
   protected string $description;
 
+
+
+
+  public function showBoards($user){
+
+      $req = $this->db()->prepare("
+        SELECT * 
+        FROM {$this->getTable()}
+        INNER JOIN gerer ON  gerer.id_tableau = tableau.id
+        INNER JOIN user ON gerer.id_user = :user;
+      ");
+
+      $req->execute([
+          ':user' => $user,
+      ]);
+      $this->closeConnection();
+
+      return $req->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function addBoard($title, $description, $user){
+
+      $req = $this->db()->prepare("
+        SELECT * 
+        FROM {$this->getTable()}
+        INNER JOIN gerer ON  gerer.id_tableau = tableau.id
+        INNER JOIN user ON gerer.id_user = :user;
+      ");
+
+  }
+
     /**
      * @return int
      */

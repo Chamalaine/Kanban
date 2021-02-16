@@ -16,7 +16,7 @@
     <form action="http://localhost/kanlo/security/resetpassword" method="post">
         <label for="password"> Mot de Passe</label>
         <input name="password" type="text" id="password">
-        <input name="id" type="hidden" value='<?php $data["id"]; ?>'>
+        <input name="id" type="hidden" value='<?php echo $data["id"]; ?>'>
         <input type="submit" value="Enregistrer">
     </form>
 </main>
