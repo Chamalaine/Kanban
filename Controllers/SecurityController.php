@@ -143,6 +143,10 @@ class SecurityController extends Controller {
                       ->setBody("http://localhost/kanlo/security/mailpassword/" . $token);
 
                   $mailer->send($message);
+
+                  $this->view("landing.php",[
+                      "message" => "Email d'oubli de mot de passe envoyé"
+                  ]);
               }
 
           } else {

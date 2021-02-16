@@ -21,9 +21,11 @@ class User extends Model {
 
     public function findUserByEmail($email){
         $req = $this->db()->prepare("SELECT * FROM {$this->getTable()} WHERE email = :email");
+
         $req->execute([
             ':email' => $email,
         ]);
+
         $this->closeConnection();
 
         return $req->fetch(PDO::FETCH_ASSOC);
@@ -48,6 +50,7 @@ class User extends Model {
         :pseudo,
         now()
         )");
+
         $req->execute([
             ':email' => $email,
             ':password' =>$password,

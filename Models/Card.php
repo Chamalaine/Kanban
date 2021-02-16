@@ -6,12 +6,12 @@ namespace Models;
 use PDO;
 
 class Card extends Model {
-    protected string $table = 'carte';
+    protected string $table = 'card';
 
     protected int $id;
     protected string $title;
     protected string $description;
-    protected int $liste_id;
+    protected int $list_id;
 
     /**
      * @return int
@@ -64,17 +64,17 @@ class Card extends Model {
     /**
      * @return int
      */
-    public function getListeId()
+    public function getListId()
     {
-        return $this->liste_id;
+        return $this->list_id;
     }
 
     /**
-     * @param int $liste_id
+     * @param int $list_id
      */
-    public function setListeId($liste_id): void
+    public function setListeId($list_id): void
     {
-        $this->liste_id = $liste_id;
+        $this->list_id = $list_id;
     }
 
 }

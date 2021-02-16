@@ -37,35 +37,47 @@ class HomeController extends Controller {
   //Display all boards of an User
   public function dashboard($userId){
       session_start();
-      if($_SESSION["id"] === $userId){
+      if(session_status() === PHP_SESSION_ACTIVE ) {
 
-          $board = new Board();
+          if ($_SESSION["id"] === $userId) {
 
-          $boards = $board->showBoards($userId);
+              $board = new Board();
 
-          $this->view('dashboard.php', [
-              'boards' => $boards,
-          ]);
+              $boards = $board->showBoards($userId);
+
+              $this->view('dashboard.php', [
+                  'boards' => $boards,
+              ]);
+          } else {
+              $this->view('landing.php');
+          }
       }
 
       else{
           $this->view('landing.php');
       }
 
+
   }
 
-
+    // Create Board from Dashboard en redirect to the created board panel
     public function addBoard(){
-        if(session_status() === PHP_SESSION_NONE ) {
+        session_start();
+        if(session_status() === PHP_SESSION_ACTIVE ) {
 
-            session_start();
+
             if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])){
 
                 if($_POST["id"]===$_SESSION["id"]){
 
                     $board = new Board();
-                    $board->addBoard($_POST["title"], $_POST["description"], $_POST["id"]);
+                    $idBoard = $board->addBoard($_POST["title"], $_POST["description"], $_POST["id"]);
 
+                    $newBoard = $board->findBoardById($idBoard);
+
+                    $this->view("board.php", [
+                        "board" => $newBoard
+                    ]);
                 }
 
                 else{

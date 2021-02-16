@@ -6,12 +6,12 @@ namespace Models;
 use PDO;
 
 class Liste extends Model {
-    protected string $table = 'liste';
+    protected string $table = 'list';
 
     protected int $id;
-    protected string $titre;
+    protected string $title;
     protected string $description;
-    protected int $id_tableau;
+    protected int $id_board;
 
     /**
      * @return int
@@ -32,17 +32,17 @@ class Liste extends Model {
     /**
      * @return string
      */
-    public function getTitre()
+    public function getTitle()
     {
-        return $this->titre;
+        return $this->title;
     }
 
     /**
-     * @param string $titre
+     * @param string $title
      */
-    public function setTitre($titre): void
+    public function setTitle($title): void
     {
-        $this->titre = $titre;
+        $this->title = $title;
     }
 
     /**
@@ -64,17 +64,17 @@ class Liste extends Model {
     /**
      * @return string
      */
-    public function getIdTableau()
+    public function getIdBoard()
     {
-        return $this->id_tableau;
+        return $this->id_board;
     }
 
     /**
      * @param int $id_tableau
      */
-    public function setIdTableau($id_tableau): void
+    public function setIdBoard($id_board): void
     {
-        $this->id_tableau = $id_tableau;
+        $this->id_board = $id_board;
     }
 
 
