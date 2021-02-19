@@ -10,9 +10,13 @@ require_once 'autoloader.php';
 $url= '';
 
 if(isset($_GET['url']) && !empty($_GET['url'])){
+
+    // Explosion of the URL
     $url = explode('/', $_GET['url']);
 
+
     $controllerName = "Controllers\\".ucfirst(array_shift($url)).'Controller';
+
     $methodName = strtolower(array_shift($url));
     $param=strtolower(array_shift($url));
 

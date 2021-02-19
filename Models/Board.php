@@ -15,7 +15,7 @@ class Board extends Model {
 
 
 
-
+  // MODEL method display all boards of 1 user
   public function showBoards($user){
 
       $req = $this->db()->prepare("
@@ -31,26 +31,24 @@ class Board extends Model {
 
       $this->closeConnection();
 
-      $arrayBoards = $req->fetchAll(PDO::FETCH_ASSOC);
+      return $req->fetchAll(PDO::FETCH_ASSOC);
 
-      return $arrayBoards;
+
   }
 
-
-  public function showBoard($id){
+  // MODEL method display 1 board
+  public function showBoard($id, $user){
 
       $req = $this->db()->prepare("
-        SELECT * 
-        FROM {$this->getTable()}
-        WHERE id=:id;
-        UNION 
-        SELECT * 
-        FROM list
-        WHERE id_board=:id
+            SELECT {$this->getTable()}.*
+            FROM {$this->getTable()}
+            INNER JOIN gerer ON  gerer.id_board = :id
+            INNER JOIN user ON gerer.id_user = :user;
       ");
 
       $req->execute([
-          ':id' => $id
+          ':id' => $id,
+          ':user' => $user
       ]);
 
       $this->closeConnection();
@@ -60,6 +58,7 @@ class Board extends Model {
 
   }
 
+  // MODEL add a board
   public function addBoard($title, $description, $user){
 
       $req = $this->db()->prepare("
@@ -97,8 +96,13 @@ class Board extends Model {
       return $idBoard;
   }
 
+  // MODEL search a board with id
   public function findBoardById($id){
-      $req = $this->db()->prepare("SELECT * FROM {$this->getTable()} WHERE id = :id");
+      $req = $this->db()->prepare("
+        SELECT * 
+        FROM {$this->getTable()} 
+        WHERE id = :id
+        ");
 
       $req->execute([
           ':id' => $id,
@@ -108,6 +112,48 @@ class Board extends Model {
 
       return $req->fetch(PDO::FETCH_ASSOC);
 
+  }
+
+  public function deleteBoard($idBoard, $user){
+
+      $req = $this->db()->prepare("
+        DELETE 
+        FROM gerer
+        WHERE id_board = :idBoard
+        ");
+
+      $req->execute([
+          ':idBoard' => $idBoard,
+      ]);
+
+      $req2 = $this->db()->prepare("
+        DELETE  
+        FROM {$this->getTable()}
+        WHERE id = :idBoard
+        ");
+
+      $req2->execute([
+          ':idBoard' => $idBoard,
+      ]);
+
+      $this->closeConnection();
+
+  }
+
+  public function addUser($idUser,$idBoard){
+
+      $req=$this->db()->prepare("
+      INSERT INTO gerer
+      (id_user,id_board)
+      VALUES (:idUser,:idBoard)
+      ");
+
+      $req->execute([
+         ':idUser' => $idUser,
+          ':idBoard' => $idBoard
+      ]);
+
+      $this->closeConnection();
   }
 
 

@@ -8,17 +8,17 @@ use Models\User;
 
 class HomeController extends Controller {
 
-
   // "Convention" Method par défaut d'appel d'un controleur
   public function index()
   {
 
   }
 
-
   //Display user Profile
   public function profile($userId){
-        session_start();
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if( isset($_SESSION["id"]) && $_SESSION["id"] === $userId){
 
           $user = new User();
@@ -37,7 +37,11 @@ class HomeController extends Controller {
 
   //Display all boards of an User
   public function dashboard($userId){
-      session_start();
+
+      if(!isset($_SESSION)){
+          session_start();
+      }
+
       if(isset($_SESSION["id"])) {
 
           if ($_SESSION["id"] === $userId) {
@@ -50,6 +54,7 @@ class HomeController extends Controller {
 
               $this->view('dashboard.php', [
                   'boards' => $boards,
+                  "message" => "Bienvenu"
               ]);
           } else {
               $this->view('landing.php');
@@ -63,11 +68,12 @@ class HomeController extends Controller {
 
   }
 
-    // Create Board from Dashboard en redirect to the created board panel
+    // Create Board from Dashboard and redirect to the created board panel
     public function addBoard(){
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         if(isset($_SESSION["id"])) {
-
 
             if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])){
 
@@ -76,10 +82,7 @@ class HomeController extends Controller {
                     $board = new Board();
                     $idBoard = $board->addBoard($_POST["title"], $_POST["description"], $_POST["id"]);
 
-
                     $newBoard = $board->findBoardById($idBoard);
-
-
 
                     $this->view("board.php", [
                         "board" => $newBoard
@@ -101,20 +104,98 @@ class HomeController extends Controller {
     //Display a bord with it's id
     public function displayBoard($idBoard){
 
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
         if(isset($_SESSION["id"])) {
 
             $user = $_SESSION["id"];
 
             $board = new Board();
 
-            $selectBoard = $board->showBoard($idBoard);
+            $selectBoard = $board->showBoard($idBoard, $user);
 
-            var_dump($selectBoard);
+            $liste = new Liste();
 
+            $listes= $liste->showListes($idBoard);
 
-
+            $this->view("board.php", [
+                "board" =>$selectBoard,
+                "listes" => $listes
+            ]);
         }
     }
+
+    public function deleteBoard($idBoard){
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if(isset($_SESSION["id"])) {
+
+            $user = $_SESSION["id"];
+
+            $board = new Board();
+
+            $selectBoard = $board->deleteBoard($idBoard, $user);
+
+            $this->dashboard($user);
+        }
+    }
+
+    public function addListe()
+    {
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if (isset($_SESSION["id"])) {
+            if (isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])) {
+
+                if ($_POST["id"] === $_SESSION["id"]) {
+
+                    $liste = new Liste();
+                    $liste->addListe($_POST["title"], $_POST["description"], $_POST["id"]);
+
+                    $this->displayBoard($_POST["id"]);
+                } else {
+                    $this->dashboard($_SESSION["id"]);
+                }
+            }
+        } else {
+            $this->view("connect.php");
+        }
+    }
+
+
+    public function addUser(){
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if (isset($_SESSION["id"])) {
+            if (isset($_POST["email"])) {
+                $user = New User();
+                $addUser = $user->findUserByEmail($_POST["email"]);
+
+                if($addUser!=false){
+
+                    $board = new Board();
+                    $board->addUser($addUser["id"],$_POST["idBoard"]);
+
+                  $data["message"]="Utilisateur ajouté";
+                }
+
+                else{
+                    $this->displayBoard($_POST["idBoard"]);
+                }
+            }
+            $this->displayBoard($_POST["idBoard"]);
+        }
+        $this->view("connect");
+    }
+
 
 }

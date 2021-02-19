@@ -9,9 +9,6 @@ use Swift_SmtpTransport;
 
 class SecurityController extends Controller {
 
-
-
-
   // "Convention" Method par défaut d'appel d'un controleur
   public function index()
   {
@@ -21,7 +18,9 @@ class SecurityController extends Controller {
   //Connection
   public function connect(){
 
-      session_start();
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if(!isset($_SESSION['id'])) {
           if (isset($_POST['email']) && isset($_POST['password'])) {
               $user = new User();
@@ -31,7 +30,9 @@ class SecurityController extends Controller {
               if ($userFind != false && password_verify($_POST['password'], $userFind["password"]) === true) {
 
                   $_SESSION["id"] = $userFind["id"];
-                  $_SESSION["auth"] = 
+                  $_SESSION["auth"] = true;
+                  $_SESSION["name"] = $userFind["pseudo"];
+
                   $this->view('home.php', [
                       'message' => "Vous êtes connecté",
                   ]);
@@ -54,16 +55,14 @@ class SecurityController extends Controller {
 
   public function disconnect(){
 
-
     session_start();
     session_destroy();
     unset($_SESSION["id"]);
+    unset($_SESSION["auth"]);
+    unset($_SESSION["name"]);
     session_unset();
 
-
     $this->view('landing.php');
-
-
 
   }
 
@@ -71,6 +70,9 @@ class SecurityController extends Controller {
   //Register
   public function register(){
 
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if(!isset($_SESSION["id"])) {
 
           if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['pseudo'])) {
@@ -85,16 +87,16 @@ class SecurityController extends Controller {
                   //Password Crypt
                   $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                   $pseudo = $_POST['pseudo'];
-                  $register_date = new \DateTime();
 
-                  $user->createUser($email, $password, $pseudo, $register_date);
+
+                  $user->createUser($email, $password, $pseudo);
 
                   $newUser = $user->findUserByEmail($email);
 
-                  $this->session();
-                  $this->isAuth();
 
                   $_SESSION["id"] = $newUser["id"];
+                  $_SESSION["auth"] = true;
+                  $_SESSION["name"] = $newUser["pseudo"];
 
                   $this->view('landing.php');
 
@@ -117,7 +119,9 @@ class SecurityController extends Controller {
 
   // Forgotten Password 1st Method, link sent
   public function forgotten(){
-      session_start();
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if(!isset($_SESSION["id"])) {
           if (isset($_POST['email'])) {
 
@@ -163,7 +167,9 @@ class SecurityController extends Controller {
   // Forgotten Password 2st Method, link clicked
   public function mailPassword($token){
 
-      session_start();
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if(!isset($_SESSION["id"])) {
 
           $user = new User();
@@ -191,17 +197,16 @@ class SecurityController extends Controller {
   // Forgotten Password 3rd Method, password change
   public function resetPassword(){
 
-
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if(!isset($_SESSION["id"])) {
           if (isset($_POST["password"])) {
+
               $user = new User();
-
-
               $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
               $user->changePassword($_POST["id"], $password);
-
               $this->connect();
-
 
           } else {
               $this->view("resetPassword.php");
@@ -216,10 +221,11 @@ class SecurityController extends Controller {
   }
 
   public function changePassword(){
-
+      if(!isset($_SESSION)){
+          session_start();
+      }
       if(isset($_SESSION["id"])) {
 
-          session_start();
           if(isset($_POST["oldPass"]) && isset($_POST["newPass"])){
 
               if($_POST["user"]===$_SESSION["id"]){

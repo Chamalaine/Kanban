@@ -31,6 +31,39 @@ class Liste extends Model {
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function addListe($title, $description, $idBoard){
+
+        $req = $this->db()->prepare("
+        INSERT INTO {$this->getTable()}
+        (title, description, id_board)
+        VALUES (:title, :description, :idBoard)
+      ");
+
+
+        $req->execute([
+            ':title' => $title,
+            ':description' => $description,
+            ':idBoard' => $idBoard
+        ]);
+
+        $this->closeConnection();
+
+    }
+
+    public function deleteListe($idListe){
+        $req = $this->db()->prepare("
+        DELETE 
+        FROM {$this->getTable()}
+        WHERE id = :idListe
+        ");
+
+        $req->execute([
+            ':idListe' => $idListe,
+        ]);
+
+        $this->closeConnection();
+    }
+
 
     /**
      * @return int
