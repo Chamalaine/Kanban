@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Models\Board;
+use Models\Liste;
 use Models\User;
 
 class HomeController extends Controller {
@@ -18,7 +19,7 @@ class HomeController extends Controller {
   //Display user Profile
   public function profile($userId){
         session_start();
-      if($_SESSION["id"] === $userId){
+      if( isset($_SESSION["id"]) && $_SESSION["id"] === $userId){
 
           $user = new User();
           $checkUser = $user->findUserById($userId);
@@ -37,13 +38,15 @@ class HomeController extends Controller {
   //Display all boards of an User
   public function dashboard($userId){
       session_start();
-      if(session_status() === PHP_SESSION_ACTIVE ) {
+      if(isset($_SESSION["id"])) {
 
           if ($_SESSION["id"] === $userId) {
 
               $board = new Board();
 
               $boards = $board->showBoards($userId);
+
+              var_dump($boards);
 
               $this->view('dashboard.php', [
                   'boards' => $boards,
@@ -63,7 +66,7 @@ class HomeController extends Controller {
     // Create Board from Dashboard en redirect to the created board panel
     public function addBoard(){
         session_start();
-        if(session_status() === PHP_SESSION_ACTIVE ) {
+        if(isset($_SESSION["id"])) {
 
 
             if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])){
@@ -73,26 +76,44 @@ class HomeController extends Controller {
                     $board = new Board();
                     $idBoard = $board->addBoard($_POST["title"], $_POST["description"], $_POST["id"]);
 
+
                     $newBoard = $board->findBoardById($idBoard);
+
+
 
                     $this->view("board.php", [
                         "board" => $newBoard
                     ]);
                 }
-
                 else{
                     $this->dashboard($_SESSION["id"]);
                 }
             }
-
             else{
                 $this->dashboard($_SESSION["id"]);
             }
-
         }
-
         else{
             $this->view("connect.php");
+        }
+    }
+
+    //Display a bord with it's id
+    public function displayBoard($idBoard){
+
+        session_start();
+        if(isset($_SESSION["id"])) {
+
+            $user = $_SESSION["id"];
+
+            $board = new Board();
+
+            $selectBoard = $board->showBoard($idBoard);
+
+            var_dump($selectBoard);
+
+
+
         }
     }
 

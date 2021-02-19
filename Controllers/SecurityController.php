@@ -21,29 +21,28 @@ class SecurityController extends Controller {
   //Connection
   public function connect(){
 
-      if(session_status() === PHP_SESSION_NONE ) {
+      session_start();
+      if(!isset($_SESSION['id'])) {
           if (isset($_POST['email']) && isset($_POST['password'])) {
-
               $user = new User();
               $userFind = $user->findUserByEmail($_POST['email']);
 
-
-              if (password_verify($_POST['password'], $userFind["password"]) === true) {
-                  $this->session();
-                  $this->isAuth();
+            
+              if ($userFind != false && password_verify($_POST['password'], $userFind["password"]) === true) {
 
                   $_SESSION["id"] = $userFind["id"];
-
-
+                  $_SESSION["auth"] = 
                   $this->view('home.php', [
                       'message' => "Vous êtes connecté",
                   ]);
-              } else {
+              }
+              else {
                   $this->view('connect.php', [
-                      'message' => "Mauvais mot de passe",
+                      'message' => "Mauvais identifiants",
                   ]);
               }
-          } else {
+          }
+          else {
               $this->view('connect.php');
           }
       }
@@ -56,8 +55,9 @@ class SecurityController extends Controller {
   public function disconnect(){
 
 
-    $this->session();
+    session_start();
     session_destroy();
+    unset($_SESSION["id"]);
     session_unset();
 
 
@@ -71,7 +71,7 @@ class SecurityController extends Controller {
   //Register
   public function register(){
 
-      if(session_status() === PHP_SESSION_NONE ) {
+      if(!isset($_SESSION["id"])) {
 
           if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['pseudo'])) {
 
@@ -117,8 +117,8 @@ class SecurityController extends Controller {
 
   // Forgotten Password 1st Method, link sent
   public function forgotten(){
-
-      if(session_status() === PHP_SESSION_NONE ) {
+      session_start();
+      if(!isset($_SESSION["id"])) {
           if (isset($_POST['email'])) {
 
               $email = $_POST['email'];
@@ -130,6 +130,7 @@ class SecurityController extends Controller {
                   //Unique Token Generator
                   $token = bin2hex(random_bytes(64));
                   $user->insertToken($checkUser["id"], $token);
+
 
                   $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
                       ->setUsername('surassur.amc@gmail.com')
@@ -162,9 +163,12 @@ class SecurityController extends Controller {
   // Forgotten Password 2st Method, link clicked
   public function mailPassword($token){
 
-      if(session_status() === PHP_SESSION_NONE ) {
+      session_start();
+      if(!isset($_SESSION["id"])) {
+
           $user = new User();
           $checkUser = $user->findToken($token);
+          var_dump($checkUser);
 
           if ($checkUser != false) {
 
@@ -172,6 +176,10 @@ class SecurityController extends Controller {
                   "id" => $checkUser['id'],
               ]);
 
+          }
+
+          else{
+              $this->view('landing.php');
           }
       }
 
@@ -183,7 +191,8 @@ class SecurityController extends Controller {
   // Forgotten Password 3rd Method, password change
   public function resetPassword(){
 
-      if(session_status() === PHP_SESSION_NONE ) {
+
+      if(!isset($_SESSION["id"])) {
           if (isset($_POST["password"])) {
               $user = new User();
 
@@ -208,7 +217,7 @@ class SecurityController extends Controller {
 
   public function changePassword(){
 
-      if(session_status() === PHP_SESSION_NONE ) {
+      if(isset($_SESSION["id"])) {
 
           session_start();
           if(isset($_POST["oldPass"]) && isset($_POST["newPass"])){

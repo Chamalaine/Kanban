@@ -2,7 +2,7 @@
   <ul>
       <?php
 
-      if(session_status() === PHP_SESSION_ACTIVE){
+      if(isset($_SESSION['id'])){
           ?>
           <li>
               <a href="http://localhost/kanlo/home/dashboard/<?php echo $_SESSION['id']; ?>">Dashboard</a>

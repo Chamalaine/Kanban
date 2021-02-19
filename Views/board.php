@@ -18,7 +18,7 @@
         <input name="title" type="text" id="title" value="Titre">
         <input name="description" type="text" id="description" value="Description">
         <input name="id" type="hidden" value="<?php echo $data["board"]["id"]; ?>">
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Enregistrer">
     </form>
 
 </main>

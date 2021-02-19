@@ -3,6 +3,7 @@
 namespace Models;
 
 use PDO;
+use Models\Liste;
 
 class Board extends Model {
     protected string $table = 'board';
@@ -18,7 +19,7 @@ class Board extends Model {
   public function showBoards($user){
 
       $req = $this->db()->prepare("
-        SELECT * 
+        SELECT {$this->getTable()}.*
         FROM {$this->getTable()}
         INNER JOIN gerer ON  gerer.id_board = board.id
         INNER JOIN user ON gerer.id_user = :user;
@@ -30,7 +31,33 @@ class Board extends Model {
 
       $this->closeConnection();
 
-      return $req->fetchAll(PDO::FETCH_ASSOC);
+      $arrayBoards = $req->fetchAll(PDO::FETCH_ASSOC);
+
+      return $arrayBoards;
+  }
+
+
+  public function showBoard($id){
+
+      $req = $this->db()->prepare("
+        SELECT * 
+        FROM {$this->getTable()}
+        WHERE id=:id;
+        UNION 
+        SELECT * 
+        FROM list
+        WHERE id_board=:id
+      ");
+
+      $req->execute([
+          ':id' => $id
+      ]);
+
+      $this->closeConnection();
+
+      return $req->fetch(PDO::FETCH_ASSOC);
+
+
   }
 
   public function addBoard($title, $description, $user){
@@ -48,14 +75,17 @@ class Board extends Model {
       ]);
 
       $idBoard = $this->db()->lastInsertId();
-      $this->closeConnection();
+
 
 
       $req2 = $this->db()->prepare("
         INSERT INTO gerer
         (id_user, id_board)
-        VALUES (:idBoard, :idUser)
+        VALUES (:idUser, :idBoard)
       ");
+
+      var_dump($user);
+      var_dump($idBoard);
 
       $req2->execute([
           ':idBoard' => $idBoard,

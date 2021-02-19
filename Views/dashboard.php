@@ -13,7 +13,12 @@
 <main>
     <h4>Dashboard</h4>
 
-    <?php var_dump($_SESSION) ?>
+    <?php foreach($data["boards"] as $board){
+        var_dump($board);
+        var_dump($_SESSION);
+        echo "<a href='http//localhost/kanlo/home/displayboard/'.$board[id].'>Afficher tableau</a>";
+    }
+        ?>
 
 
     <form action="http://localhost/kanlo/home/addboard" method="post">

@@ -13,6 +13,25 @@ class Liste extends Model {
     protected string $description;
     protected int $id_board;
 
+
+
+    public function showListes($idBoard){
+        $req = $this->db()->prepare("
+        SELECT * 
+        FROM {$this->getTable()}
+        WHERE id_board = :idBoard
+      ");
+
+        $req->execute([
+            ':idBoard' => $idBoard
+        ]);
+
+        $this->closeConnection();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     /**
      * @return int
      */
