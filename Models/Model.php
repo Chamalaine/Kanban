@@ -7,7 +7,7 @@ use PDOException;
 
 class Model {
   protected  $db;
-  protected string $table;
+  protected $table;
 
   public function db()
   {
@@ -46,7 +46,7 @@ class Model {
   {
     $dsn = 'mysql:host=localhost;port=3306;dbname=kanlo';
     try {
-      $this->db = new PDO($dsn, 'root', '');
+      $this->db = new PDO($dsn, 'root', 'root');
     } catch (PDOException $e) {
       echo $e->getMessage() . '<br>';
       exit();

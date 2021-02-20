@@ -60,8 +60,8 @@ class HomeController extends Controller {
                   array_push($board, $listes);
 
                   array_push($arrayBoards, $board);
-
               }
+
               $boards=$arrayBoards;
 
               var_dump($boards);

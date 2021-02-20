@@ -16,7 +16,7 @@
     <?php
 
     foreach($data["boards"] as $board){
-        var_dump($board);
+
         echo "<a href='/kanlo/home/displayboard/$board[id]'>Afficher tableau</a>";
         echo "<a href='/kanlo/home/deleteboard/$board[id]'>Effacer tableau</a>";
     }

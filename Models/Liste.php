@@ -6,12 +6,12 @@ namespace Models;
 use PDO;
 
 class Liste extends Model {
-    protected string $table = 'list';
+    protected $table = 'list';
 
-    protected int $id;
-    protected string $title;
-    protected string $description;
-    protected int $id_board;
+    protected $id;
+    protected $title;
+    protected $description;
+    protected $id_board;
 
 
 

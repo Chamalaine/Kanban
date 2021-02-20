@@ -6,16 +6,16 @@ use DateTime;
 use PDO;
 
 class User extends Model {
-    protected string $table = 'user';
+    protected $table = 'user';
 
-    protected int $id;
-    protected string $email;
-    protected string $password;
-    protected string $pseudo;
-    protected DateTime $register_date;
-    protected DateTime $last_connect;
-    protected bool $confirmed;
-    protected string $token;
+    protected $id;
+    protected $email;
+    protected $password;
+    protected $pseudo;
+    protected $register_date;
+    protected $last_connect;
+    protected $confirmed;
+    protected $token;
 
 
 

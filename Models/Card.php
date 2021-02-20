@@ -6,13 +6,13 @@ namespace Models;
 use PDO;
 
 class Card extends Model {
-    protected string $table = 'card';
+    protected $table = 'card';
 
 
-    protected int $id;
-    protected string $title;
-    protected string $description;
-    protected int $list_id;
+    protected $id;
+    protected $title;
+    protected $description;
+    protected $list_id;
 
 
     public function showCards($idListe){

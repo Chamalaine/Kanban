@@ -6,12 +6,12 @@ use PDO;
 use Models\Liste;
 
 class Board extends Model {
-    protected string $table = 'board';
+    protected $table = 'board';
 
 
-  protected int $id;
-  protected string $title;
-  protected string $description;
+  protected $id;
+  protected $title;
+  protected $description;
 
 
 
