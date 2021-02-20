@@ -12,19 +12,23 @@ class SecurityController extends Controller {
   // "Convention" Method par défaut d'appel d'un controleur
   public function index()
   {
-    $this->view('connect.php');
+    $this->view('login.php');
   }
 
   //Connection
   public function connect(){
 
+
+
       if(!isset($_SESSION)){
           session_start();
       }
+
       if(!isset($_SESSION['id'])) {
           if (isset($_POST['email']) && isset($_POST['password'])) {
               $user = new User();
               $userFind = $user->findUserByEmail($_POST['email']);
+
 
             
               if ($userFind != false && password_verify($_POST['password'], $userFind["password"]) === true) {
@@ -38,17 +42,18 @@ class SecurityController extends Controller {
                   ]);
               }
               else {
-                  $this->view('connect.php', [
+                  $this->view('login.php', [
                       'message' => "Mauvais identifiants",
                   ]);
               }
           }
           else {
-              $this->view('connect.php');
+              $this->view('login.php');
           }
       }
 
       else{
+
           $this->view('landing.php');
       }
   }
@@ -159,7 +164,7 @@ class SecurityController extends Controller {
               }
 
           } else {
-              $this->view('forgotten.php');
+              $this->view('forgottenPassword.php');
           }
       }
 

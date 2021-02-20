@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- Titre -->
-    <title>Kanlo Password Change</title>
+    <title>Kanlo Password Recovery</title>
 </head>
 <body>
 
@@ -29,15 +29,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 content-col">
-                    <h3>Redéfinir votre Mot de Passe</h3>
-                    <form id="contact-form" action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/changepassword" method="POST">
+                    <h3>Mot de passe oublié</h3>
+                    <form id="contact-form" action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/forgotten" method="POST">
                         <ul>
                             <li>
-                                <label for="text"></label>
-                                <input type="text" name="password" id="password" placeholder="Nouveau Mot de Passe">
+                                <label for="email"></label>
+                                <input type="email" name="email" id="email" placeholder="E-mail">
                             </li>
                             <li>
-                                <button class="btn-log" type="submit" name="submit">Définir</button>
+                                <button class="btn-log" type="submit" name="submit">Restaurer</button>
                             </li>                        
                         </ul>
                     </form>

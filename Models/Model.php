@@ -46,7 +46,7 @@ class Model {
   {
     $dsn = 'mysql:host=localhost;port=3306;dbname=kanlo';
     try {
-      $this->db = new PDO($dsn, 'root', 'root');
+      $this->db = new PDO($dsn, 'root', '');
     } catch (PDOException $e) {
       echo $e->getMessage() . '<br>';
       exit();

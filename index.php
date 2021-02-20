@@ -9,14 +9,13 @@ require_once 'autoloader.php';
 
 $url= '';
 
-$http ='http://' . $_SERVER["HTTP_HOST"];
 
-var_dump($http);
 
 if(isset($_GET['url']) && !empty($_GET['url'])){
 
     // Explosion of the URL
     $url = explode('/', $_GET['url']);
+
 
 
     $controllerName = "Controllers\\".ucfirst(array_shift($url)).'Controller';

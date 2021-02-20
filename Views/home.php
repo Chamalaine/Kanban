@@ -7,7 +7,7 @@
 </head>
 <body>
   <header>
-    <?php require_once 'layout/menu.php'; ?>
+    <?php require_once 'header.php'; ?>
   </header>
 
   <main>
@@ -15,6 +15,6 @@
       <h3>Bienvenu sur Kanlo ! </h3>
   </main>
 
-  <?php require_once 'layout/footer.php'; ?>
+  <?php require_once 'footer.php'; ?>
 </body>
 </html>

@@ -54,6 +54,7 @@ class HomeController extends Controller {
               $listeManager= new Liste();
 
               $arrayBoards =[];
+
               foreach($boards as $board){
                   $listes=$listeManager->showListes($board["id"]);
 
@@ -137,14 +138,13 @@ class HomeController extends Controller {
             $cardManager= new Card();
 
             $arrayListe =[];
+
             foreach($listes as $liste){
                 $cards=$cardManager->showCards($liste["id"]);
-
                 array_push($liste, $cards);
-
                 array_push($arrayListe, $liste);
-
             }
+
             $listes=$arrayListe;
             var_dump($listes);
 
@@ -188,7 +188,7 @@ class HomeController extends Controller {
                     $this->displayBoard($_POST["id"]);
             }
         } else {
-            $this->view("connect.php");
+            $this->view("login-form.php");
         }
     }
 

@@ -11,12 +11,12 @@
 
     <!-- Lines -->
     <link rel="icon" type="image/png" href="src/img/favicon.png">
-    <link rel="stylesheet" href="/kanlo/public/css/style.css">
+    <link rel="stylesheet" href="src/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <!-- Titre -->
-    <title>Kanlo Password Change</title>
+    <title>Kanlo Error 404</title>
 </head>
 <body>
 
@@ -29,18 +29,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 content-col">
-                    <h3>Redéfinir votre Mot de Passe</h3>
-                    <form id="contact-form" action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/changepassword" method="POST">
-                        <ul>
-                            <li>
-                                <label for="text"></label>
-                                <input type="text" name="password" id="password" placeholder="Nouveau Mot de Passe">
-                            </li>
-                            <li>
-                                <button class="btn-log" type="submit" name="submit">Définir</button>
-                            </li>                        
-                        </ul>
-                    </form>
+                    <h3>Désolé, la page que vous demandez n'existe pas...</h3>
+                    <img src="src/img/404.png" alt="Logo Kanlo">
+                    <a class="btn btn-outline-light btn-lg btn-log" href="landing.php" role="button">Accueil</a>
+                    
                 </div>
             </div>
         </div>

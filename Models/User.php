@@ -44,11 +44,13 @@ class User extends Model {
 
     public function createUser($email, $password, $pseudo){
         $req = $this->db()->prepare("INSERT INTO {$this->getTable()}
-        (email, password, pseudo, register_date)  
+        (email, password, pseudo, register_date, last_connect, confirmed)  
         VALUES (:email, 
         :password, 
         :pseudo,
-        now()
+        now(),
+        now(),
+        1, 
         )");
 
         $req->execute([
