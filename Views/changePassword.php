@@ -15,7 +15,7 @@
 
     <?php var_dump($data); ?>
 
-    <form action="http://localhost/kanlo/security/changepassword" method="post">
+    <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/changepassword" method="post">
         <label for="oldPass">Mot de passe actuel</label>
         <input name="oldPass" type="text" id="password">
 

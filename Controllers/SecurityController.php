@@ -55,6 +55,10 @@ class SecurityController extends Controller {
 
   public function disconnect(){
 
+      $currentUrl ='http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+
+      var_dump($currentUrl);
+
     session_start();
     session_destroy();
     unset($_SESSION["id"]);

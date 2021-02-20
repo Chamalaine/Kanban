@@ -17,7 +17,7 @@
     <?php echo $data["message"] ?>
 
     <!-- Add User for collab form should not be foreached -->
-    <form action="http://localhost/kanlo/home/addUser" method="post">
+    <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/addUser" method="post">
         <input name="email" type="email  value="Email">
         <input name="idBoard" type="hidden" value="<?php echo $data["board"]["id"]; ?>">
         <input type="submit" value="Ajouter User">
@@ -25,7 +25,7 @@
 
 
     <!-- AddList to the array display form should not be foreached -->
-    <form action="http://localhost/kanlo/home/addListe" method="post">
+    <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/addListe" method="post">
         <input name="title" type="text" id="title" value="Titre">
         <input name="description" type="text" id="description" value="Description">
         <input name="id" type="hidden" value="<?php echo $data["board"]["id"]; ?>">

@@ -30,7 +30,7 @@ include 'header.php';
         <div class="row">
             <div class="col-sm-12 content-col">
                 <h3>Bonjour !</h3>
-                <form id="contact-form" action="http://localhost/kanlo/security/connect" method="POST">
+                <form id="contact-form" action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/connect" method="POST">
                     <ul>
                         <li>
                             <label for="email"></label>

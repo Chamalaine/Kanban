@@ -13,7 +13,7 @@
 <main>
     <h4>Inscription</h4>
 
-    <form action="http://localhost/kanlo/security/register" method="post">
+    <form action='http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/register' method="post">
         <label for="email"> Email</label>
         <input name="email" type="text" id="email">
 

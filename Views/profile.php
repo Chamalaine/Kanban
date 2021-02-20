@@ -15,7 +15,7 @@
 <main>
     <h4>Profile user</h4>
 
-    <a href="http://localhost/kanlo/security/changepassword">Modifier mot de passe</a>
+    <a href="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/changepassword">Modifier mot de passe</a>
 </main>
 
 <?php require_once 'layout/footer.php'; ?>

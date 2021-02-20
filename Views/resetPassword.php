@@ -13,7 +13,7 @@
 <main>
     <h4>Réinitialisation Mot de Passe</h4>
 
-    <form action="http://localhost/kanlo/security/resetpassword" method="post">
+    <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/resetpassword" method="post">
         <label for="password"> Mot de Passe</label>
         <input name="password" type="text" id="password">
         <input name="id" type="hidden" value='<?php echo $data["id"]; ?>'>

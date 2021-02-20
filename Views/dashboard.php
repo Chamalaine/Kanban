@@ -23,7 +23,7 @@
         ?>
 
     <!-- Addboard to the dashboard - form should not be repeated -->
-    <form action="http://localhost/kanlo/home/addboard" method="post">
+    <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/addboard" method="post">
         <input name="title" type="text" id="title" value="Titre">
         <input name="description" type="text" id="description" value="Description">
         <input name="id" type="hidden" value="<?php echo $_SESSION['id']; ?>">

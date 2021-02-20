@@ -6,11 +6,11 @@ namespace Models;
 
 class Manager extends Model
 {
-    protected string $table = 'gerer';
+    protected  $table = 'gerer';
 
-    protected int $id;
-    protected int $id_board;
-    protected int $id_user;
+    protected  $id;
+    protected  $id_board;
+    protected  $id_user;
 
     /**
      * @return int
