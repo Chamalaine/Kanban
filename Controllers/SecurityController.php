@@ -37,7 +37,7 @@ class SecurityController extends Controller {
                   $_SESSION["auth"] = true;
                   $_SESSION["name"] = $userFind["pseudo"];
 
-                  $this->view('home.php', [
+                  $this->view('landing.php', [
                       'message' => "Vous êtes connecté",
                   ]);
               }
@@ -247,7 +247,7 @@ class SecurityController extends Controller {
                       $password = password_hash($_POST["newPass"], PASSWORD_DEFAULT);
                       $user->changePassword($_POST["user"], $password);
 
-                      $this->view('home.php', [
+                      $this->view('landing.php', [
                           "message" => "Mot de passe modifié",
                       ]);
                   }

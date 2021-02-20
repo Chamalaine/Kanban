@@ -37,7 +37,15 @@
                     <?php if(!isset($_SESSION['id'])){ ?>
                     <a class="btn btn-outline-light btn-lg btn-log" href="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/register" role="button">S'inscrire</a>
                     <a class="btn btn-outline-light btn-lg btn-log" href="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/connect" role="button">Se connecter</a>
-                    <?php } ?>
+                    <?php }
+                      else{
+
+                    ?>
+                          <a class="btn btn-outline-light btn-lg btn-log" href="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/dashboard/<?php echo $_SESSION['id']; ?>">Dashboard</a>
+                          <a class="btn btn-outline-light btn-lg btn-log" href="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/profile/<?php echo $_SESSION['id']; ?>">Profile</a>
+                          <a class="btn btn-outline-light btn-lg btn-log" href="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/disconnect">Deconnexion</a>
+
+                    <?php }?>
                 </div>
             </div>
         </div>

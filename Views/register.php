@@ -34,11 +34,7 @@
                             <ul>
                                 <li>
                                     <label for="fname"></label>
-                                    <input type="text" name="fname" id="fname" placeholder="Prénom">
-                                </li>
-                                <li>
-                                    <label for="lname"></label>
-                                    <input type="text" name="lname" id="lname" placeholder="Nom">
+                                    <input type="text" name="pseudo" id="fname" placeholder="Pseudo">
                                 </li>
                                 <li>
                                     <label for="email"></label>

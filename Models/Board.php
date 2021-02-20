@@ -22,7 +22,7 @@ class Board extends Model {
         SELECT {$this->getTable()}.*
         FROM {$this->getTable()}
         INNER JOIN gerer ON  gerer.id_board = board.id
-        INNER JOIN user ON gerer.id_user = :user;
+        WHERE gerer.id_user = :user;
       ");
 
       $req->execute([

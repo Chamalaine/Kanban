@@ -50,7 +50,7 @@ class User extends Model {
         :pseudo,
         now(),
         now(),
-        1, 
+        1 
         )");
 
         $req->execute([

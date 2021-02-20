@@ -55,6 +55,8 @@ class HomeController extends Controller {
 
               $arrayBoards =[];
 
+              var_dump($boards);
+
               foreach($boards as $board){
                   $listes=$listeManager->showListes($board["id"]);
 
@@ -65,7 +67,6 @@ class HomeController extends Controller {
 
               $boards=$arrayBoards;
 
-              var_dump($boards);
 
               $this->view('dashboard.php', [
                   'boards' => $boards,
