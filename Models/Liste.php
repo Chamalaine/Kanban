@@ -17,8 +17,7 @@ class Liste extends Model {
 
     public function showListes($idBoard){
         $req = $this->db()->prepare("
-        SELECT * 
-        FROM {$this->getTable()}
+        SELECT * FROM {$this->getTable()} 
         WHERE id_board = :idBoard
       ");
 

@@ -37,24 +37,20 @@ class Board extends Model {
   }
 
   // MODEL method display 1 board
-  public function showBoard($id, $user){
+  public function showBoard($id){
 
       $req = $this->db()->prepare("
-            SELECT {$this->getTable()}.*
-            FROM {$this->getTable()}
-            INNER JOIN gerer ON  gerer.id_board = :id
-            INNER JOIN user ON gerer.id_user = :user;
+        SELECT * FROM board 
+        WHERE id = :id
       ");
 
       $req->execute([
           ':id' => $id,
-          ':user' => $user
       ]);
 
       $this->closeConnection();
 
       return $req->fetch(PDO::FETCH_ASSOC);
-
 
   }
 

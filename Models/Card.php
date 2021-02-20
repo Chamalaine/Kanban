@@ -8,10 +8,60 @@ use PDO;
 class Card extends Model {
     protected string $table = 'card';
 
+
     protected int $id;
     protected string $title;
     protected string $description;
     protected int $list_id;
+
+
+    public function showCards($idListe){
+        $req = $this->db()->prepare("
+        SELECT * FROM {$this->getTable()} 
+        WHERE id_list = :idListe
+      ");
+
+        $req->execute([
+            ':idListe' => $idListe
+        ]);
+
+        $this->closeConnection();
+
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addCard($title,$description,$idListe){
+
+        $req = $this->db()->prepare("
+        INSERT INTO {$this->getTable()}
+        (title, description, id_list)
+        VALUES (:title, :description, :idListe)
+      ");
+
+
+        $req->execute([
+            ':title' => $title,
+            ':description' => $description,
+            ':idListe' => $idListe
+        ]);
+
+        $this->closeConnection();
+
+    }
+
+    public function deleteCard($idCard){
+        $req = $this->db()->prepare("
+        DELETE 
+        FROM {$this->getTable()}
+        WHERE id = :idCard
+        ");
+
+        $req->execute([
+            ':idCard' => $idCard,
+        ]);
+
+        $this->closeConnection();
+    }
 
     /**
      * @return int

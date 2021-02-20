@@ -13,15 +13,16 @@
 <main>
     <h4>Dashboard</h4>
 
-    <?php foreach($data["boards"] as $board){
+    <?php
+
+    foreach($data["boards"] as $board){
         var_dump($board);
-        var_dump($_SESSION);
         echo "<a href='/kanlo/home/displayboard/$board[id]'>Afficher tableau</a>";
         echo "<a href='/kanlo/home/deleteboard/$board[id]'>Effacer tableau</a>";
     }
         ?>
 
-
+    <!-- Addboard to the dashboard - form should not be repeated -->
     <form action="http://localhost/kanlo/home/addboard" method="post">
         <input name="title" type="text" id="title" value="Titre">
         <input name="description" type="text" id="description" value="Description">

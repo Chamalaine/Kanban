@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Models\Board;
+use Models\Card;
 use Models\Liste;
 use Models\User;
 
@@ -46,9 +47,22 @@ class HomeController extends Controller {
 
           if ($_SESSION["id"] === $userId) {
 
-              $board = new Board();
+              $boardManager = new Board();
 
-              $boards = $board->showBoards($userId);
+              $boards = $boardManager->showBoards($userId);
+
+              $listeManager= new Liste();
+
+              $arrayBoards =[];
+              foreach($boards as $board){
+                  $listes=$listeManager->showListes($board["id"]);
+
+                  array_push($board, $listes);
+
+                  array_push($arrayBoards, $board);
+
+              }
+              $boards=$arrayBoards;
 
               var_dump($boards);
 
@@ -114,11 +128,25 @@ class HomeController extends Controller {
 
             $board = new Board();
 
-            $selectBoard = $board->showBoard($idBoard, $user);
+            $selectBoard = $board->showBoard($idBoard);
 
-            $liste = new Liste();
+            $listeManager = new Liste();
 
-            $listes= $liste->showListes($idBoard);
+            $listes= $listeManager->showListes($idBoard);
+
+            $cardManager= new Card();
+
+            $arrayListe =[];
+            foreach($listes as $liste){
+                $cards=$cardManager->showCards($liste["id"]);
+
+                array_push($liste, $cards);
+
+                array_push($arrayListe, $liste);
+
+            }
+            $listes=$arrayListe;
+            var_dump($listes);
 
             $this->view("board.php", [
                 "board" =>$selectBoard,
@@ -154,15 +182,10 @@ class HomeController extends Controller {
         if (isset($_SESSION["id"])) {
             if (isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])) {
 
-                if ($_POST["id"] === $_SESSION["id"]) {
-
                     $liste = new Liste();
                     $liste->addListe($_POST["title"], $_POST["description"], $_POST["id"]);
 
                     $this->displayBoard($_POST["id"]);
-                } else {
-                    $this->dashboard($_SESSION["id"]);
-                }
             }
         } else {
             $this->view("connect.php");

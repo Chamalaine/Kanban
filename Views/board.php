@@ -9,26 +9,32 @@
 <header>
     <?php require_once 'layout/menu.php'; ?>
 </header>
-<?php var_dump($data); ?>
+
 <main>
     <h4>Tableau</h4>
     <h3>Titre du tableau : <?php echo $data["board"]["title"]?></h3>
 
     <?php echo $data["message"] ?>
 
-
-    <form action="http://localhost/kanlo/home/adduser" method="post">
+    <!-- Add User for collab form should not be foreached -->
+    <form action="http://localhost/kanlo/home/addUser" method="post">
         <input name="email" type="email  value="Email">
         <input name="idBoard" type="hidden" value="<?php echo $data["board"]["id"]; ?>">
         <input type="submit" value="Ajouter User">
     </form>
 
-    <form action="http://localhost/kanlo/home/addliste" method="post">
+
+    <!-- AddList to the array display form should not be foreached -->
+    <form action="http://localhost/kanlo/home/addListe" method="post">
         <input name="title" type="text" id="title" value="Titre">
         <input name="description" type="text" id="description" value="Description">
         <input name="id" type="hidden" value="<?php echo $data["board"]["id"]; ?>">
-        <input type="submit" value="Enregistrer">
+        <input type="submit" value="Ajouter Liste">
     </form>
+
+
+
+
 
 </main>
 
