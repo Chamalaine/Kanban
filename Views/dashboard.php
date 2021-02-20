@@ -49,6 +49,8 @@
     }
         ?>
 
+
+    
     <!-- Addboard to the dashboard - form should not be repeated -->
     <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/addboard" method="post">
         <input name="title" type="text" id="title" value="Titre">
