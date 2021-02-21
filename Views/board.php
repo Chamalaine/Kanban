@@ -27,9 +27,8 @@
 
 
     <h4>Tableau</h4>
-    <h3>Titre du tableau : <?php echo $data["board"]["title"]?></h3>
+    <h3>Titre du tableau : <?php echo $data["board"]["title"];?></h3>
 
-    <?php echo $data["message"] ?>
 
     <!-- Add User for collab form should not be foreached -->
     <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/addUser" method="post">
@@ -46,6 +45,48 @@
         <input name="id" type="hidden" value="<?php echo $data["board"]["id"]; ?>">
         <input type="submit" value="Ajouter Liste">
     </form>
+
+
+    <?php
+    // Here we take from the controller $data who got an array of listes, so we browse it to display listes
+    foreach($data["listes"] as $liste){?>
+
+        <h3><?php echo $liste["title"];?></h3>
+
+        <?php
+        // Inside each list, there is an array of card, we display them by browsing the array
+        foreach($liste[0] as $card){?>
+
+            <h4><?php echo $card["title"];?></h4>
+            <h5><?php echo $card["description"];?></h5>
+
+            <!-- Delete card method -->
+            <a href='/kanlo/home/deletecard/<?php echo $card["id"];?>'>Effacer Carte</a>;
+
+
+        <?php
+        // Here we stop browsing the card array inside each list
+        }
+        ?>
+
+        <!-- Form to add a card on each list, this form get repeated for each list though the array browsing in php -->
+        <form action="http://<?php echo $_SERVER["HTTP_HOST"];?>/kanlo/home/addCard" method="post">
+            <input name="title" type="text" id="title" value="Titre">
+            <input name="description" type="text" id="description" value="Description">
+            <input name="idListe" type="hidden" value="<?php echo $liste["id"];?>">
+            <input name="idBoard" type="hidden" value="<?php echo $liste["id_board"];?>">
+            <input type="submit" value="Ajouter Carte">
+        </form>
+
+        <!-- this a link calls the deletelistmethod from our homecontroller and get repeated for each list -->
+        <a href='/kanlo/home/deleteliste/<?php echo $liste["id"];?>'>Effacer Liste</a>;
+
+    <?php
+    //here we stop browsing the list array
+    }
+        ?>
+
+
 
     <!-- Nav menu grey -->
    <section class="nav-menu">

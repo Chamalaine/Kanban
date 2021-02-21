@@ -41,22 +41,42 @@
     <h4>Dashboard</h4>
 
     <?php
+    // We take $data from our controller, we point the element boards who is an array of boards with associated
+    // array  of listes
+    foreach($data["boards"] as $board){?>
 
-    foreach($data["boards"] as $board){
+        <?php //Here we browse the array of boards and display data of each board ?>
+        <h2><?php echo $board["title"]; ?></h2>
+        <h3><?php echo $board["description"];?></h3>
 
-        echo "<a href='/kanlo/home/displayboard/$board[id]'>Afficher tableau</a>";
-        echo "<a href='/kanlo/home/deleteboard/$board[id]'>Effacer tableau</a>";
+        <?php // Here we are browsing again, but the array of lists from each boards
+        foreach($board[0] as $liste){?>
+                <h4><?php echo $liste["title"];?></h4>
+                 <h5><?php echo $liste["description"]; ?></h5>
+        <?php
+        // Here we stop browsing the array of lists inside each boards
+        }
+
+
+        // DO NOT MODIFY THE LOGICAL PHP CODE ---- JUST STYLIZE IT OR CHANGE THE HTML BALISES FOR STYLE NECCESSITY --
+        // DO NOT change the href links
+        // IN CASE OF PHP ERROR CALL ME
+        ?>
+            <a href='/kanlo/home/displayboard/<?php echo $board["id"]?>'>Afficher tableau</a>
+            <a href='/kanlo/home/deleteboard/<?php echo $board["id"]?>'>Effacer tableau</a>
+    <?php
+    // Here we stop browsing the array of boards
     }
         ?>
 
 
     
-    <!-- Addboard to the dashboard - form should not be repeated -->
+    <!--Addboard to the dashboard - form should not be repeated - Do not modify the inputs or action, just stylize it-->
     <form action="http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/home/addboard" method="post">
         <input name="title" type="text" id="title" value="Titre">
         <input name="description" type="text" id="description" value="Description">
         <input name="id" type="hidden" value="<?php echo $_SESSION['id']; ?>">
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Ajouter un Tableau">
     </form>
 
     

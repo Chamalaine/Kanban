@@ -63,6 +63,21 @@ class Liste extends Model {
         $this->closeConnection();
     }
 
+    public function findListeById($idListe){
+        $req = $this->db()->prepare("
+        SELECT * FROM {$this->getTable()} 
+        WHERE id = :idListe
+      ");
+
+        $req->execute([
+            ':idListe' => $idListe
+        ]);
+
+        $this->closeConnection();
+
+        return $req->fetch(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * @return int

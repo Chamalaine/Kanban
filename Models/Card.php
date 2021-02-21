@@ -63,6 +63,22 @@ class Card extends Model {
         $this->closeConnection();
     }
 
+    public function findCardById($idCard){
+        $req = $this->db()->prepare("
+        SELECT * FROM {$this->getTable()} 
+        WHERE id = :idCard
+      ");
+
+        $req->execute([
+            ':idCard' => $idCard
+        ]);
+
+        $this->closeConnection();
+
+        return $req->fetch(PDO::FETCH_ASSOC);
+
+    }
+
     /**
      * @return int
      */

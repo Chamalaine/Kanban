@@ -55,7 +55,7 @@ class HomeController extends Controller {
 
               $arrayBoards =[];
 
-              var_dump($boards);
+
 
               foreach($boards as $board){
                   $listes=$listeManager->showListes($board["id"]);
@@ -66,7 +66,6 @@ class HomeController extends Controller {
               }
 
               $boards=$arrayBoards;
-
 
               $this->view('dashboard.php', [
                   'boards' => $boards,
@@ -189,7 +188,7 @@ class HomeController extends Controller {
                     $this->displayBoard($_POST["id"]);
             }
         } else {
-            $this->view("login-form.php");
+            $this->view("login.php");
         }
     }
 
@@ -221,5 +220,43 @@ class HomeController extends Controller {
         $this->view("connect");
     }
 
+    public function addCard()
+    {
+        if(!isset($_SESSION)){
+            session_start();
+        }
 
+        if (isset($_SESSION["id"])) {
+            if (isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["idListe"]) && isset($_POST["idBoard"])) {
+
+                $cardManager = new Card();
+                $cardManager->addCard($_POST["title"], $_POST["description"], $_POST["idListe"]);
+
+                $this->displayBoard($_POST["idBoard"]);
+            }
+        } else {
+            $this->view("login.php");
+        }
+    }
+
+    public function deleteCard($idCard){
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if(isset($_SESSION["id"])) {
+
+
+            $cardManager= new Card();
+            $card = $cardManager->findCardById($idCard);
+
+            $listeManager = new Liste();
+            $liste = $listeManager->findListeById($card["id_list"]);
+            $cardManager->deleteCard($idCard);
+
+            $this->displayBoard($liste["id_board"]);
+        }
+
+    }
 }
