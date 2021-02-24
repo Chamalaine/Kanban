@@ -44,9 +44,9 @@ class Model {
 
   protected function openConnection()
   {
-    $dsn = 'mysql:host=localhost;port=3306;dbname=kanlo';
+    $dsn = 'mysql:host=db5001785174.hosting-data.io;dbname=dbs1472179';
     try {
-      $this->db = new PDO($dsn, 'root', '');
+      $this->db = new PDO($dsn, 'dbu535357', 'Kanlocci67.');
     } catch (PDOException $e) {
       echo $e->getMessage() . '<br>';
       exit();

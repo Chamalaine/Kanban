@@ -24,6 +24,8 @@ class SecurityController extends Controller {
           session_start();
       }
 
+
+
       if(!isset($_SESSION['id'])) {
           if (isset($_POST['email']) && isset($_POST['password'])) {
               $user = new User();
@@ -59,11 +61,6 @@ class SecurityController extends Controller {
   }
 
   public function disconnect(){
-
-      $currentUrl ='http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-
-      var_dump($currentUrl);
-
     session_start();
     session_destroy();
     unset($_SESSION["id"]);
@@ -107,7 +104,9 @@ class SecurityController extends Controller {
                   $_SESSION["auth"] = true;
                   $_SESSION["name"] = $newUser["pseudo"];
 
-                  $this->view('landing.php');
+                  $this->view('landing.php', [
+                      "message" => "Inscription réalisé"
+                  ]);
 
               } else {
                   $this->view('register.php', [
@@ -151,16 +150,25 @@ class SecurityController extends Controller {
 
                   $mailer = new Swift_Mailer($transport);
 
+                  $url = "https://kanlo.chamalaine.fr/security/mailpassword/" . $token;
+
                   $message = (new Swift_Message("Oubli mot de passe"))
                       ->setFrom(['surassur.amc@gmail.com'])
                       ->setTo([$email])
-                      ->setBody("http://localhost/kanlo/security/mailpassword/" . $token);
+                      ->setBody("Veuillez cliquer sur ce lien afin de réinitialiser votre mot de passe : ".$url);
+
 
                   $mailer->send($message);
 
-                  $this->view("landing.php",[
+                  $this->view("forgottenPassword.php",[
                       "message" => "Email d'oubli de mot de passe envoyé"
                   ]);
+              }
+
+              else{
+                  $this->view('forgottenPassword.php', [
+                      "message" => "L'email fourni est incorrect"
+                  ] );
               }
 
           } else {
@@ -183,8 +191,7 @@ class SecurityController extends Controller {
 
           $user = new User();
           $checkUser = $user->findToken($token);
-          var_dump($checkUser);
-
+    
           if ($checkUser != false) {
 
               $this->view("resetPassword.php", [
@@ -224,7 +231,9 @@ class SecurityController extends Controller {
       }
 
       else{
-          $this->view('landing.php');
+          $this->view('landing.php', [
+              "message" => "Mot de passe réinitialisé"
+          ]);
       }
 
   }
@@ -260,16 +269,12 @@ class SecurityController extends Controller {
               }
 
               else{
-                  $this->view('changePassword.php', [
-                      "message" => "Erreur id",
-                  ]);
+                  $this->view('changePassword.php');
               }
           }
 
           else{
-              $this->view('changePassword.php', [
-                  "message" => "post truc muche",
-              ]);
+              $this->view('changePassword.php');
           }
       }
 
@@ -277,6 +282,14 @@ class SecurityController extends Controller {
           $this->connect();
       }
 
+  }
+
+  public function confidential(){
+      $this->view('privacyPolice.php');
+  }
+
+  public function mentions(){
+      $this->view('legalNotice.php');
   }
 
 

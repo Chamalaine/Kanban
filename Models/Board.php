@@ -79,8 +79,6 @@ class Board extends Model {
         VALUES (:idUser, :idBoard)
       ");
 
-      var_dump($user);
-      var_dump($idBoard);
 
       $req2->execute([
           ':idBoard' => $idBoard,

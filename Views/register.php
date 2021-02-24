@@ -10,8 +10,8 @@
 
 
     <!-- Lines -->
-    <link rel="icon" type="image/png" href="/kanlo/public/img/favicon.png">
-    <link rel="stylesheet" href="/kanlo/public/css/style.css">
+    <link rel="icon" type="image/png" href="../public/img/favicon.png">
+    <link rel="stylesheet" href="../public/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div   class="col-sm-12 content-col">
                         <h3>S'inscrire !</h3>
-                        <form id="register-form" action='http://<?php echo $_SERVER["HTTP_HOST"]?>/kanlo/security/register' method="POST">
+                        <form id="register-form" action='https://<?php echo $_SERVER["HTTP_HOST"]?>/security/register' method="POST">
                             <ul>
                                 <li>
                                     <label for="fname"></label>

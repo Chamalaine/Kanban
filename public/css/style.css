@@ -26,8 +26,34 @@ body {
 /* Titres */
 
 h1, h2, h3{
-    font-family: 'Yusei Magic', sans-serif;;
+    font-family: 'Yusei Magic', sans-serif;
 }
+
+.typewriter h3 {
+  color: black;
+  font-family: 'Yusei Magic', sans-serif;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid black; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: black }
+}
+
 
 /* Formatage du logo principal */
 .logo {
@@ -37,24 +63,68 @@ h1, h2, h3{
     margin-top:15vh;
 }
 
-/* Header include in the login and register pages */
-.nav-bar {
-    width:100%;
-    padding:15px 15px;
+.pwd-center{
     display:flex;
-    justify-content:space-between;
+    justify-content: center;
+}
+
+.nav-bar{
+    display: flex;
+    padding: 15px 15px;
+    justify-content: space-between;
     align-items:center;
 }
 
-a.sign-up {
+/* Header include in the login and register pages */
+.nav-bar ul{
+    display:flex;
+    justify-content:flex-end;
+
+}
+
+.nav-bar ul li{
+    list-style-type: none;
+    padding-left:15px;
+}
+
+.nav-bar ul li a {
     color:white !important;
     text-decoration:none !important;
     font-size:22px;
 }
 
-a.sign-up:hover {
+.nav-bar ul li a:hover {
     color:lightgrey !important;
+
 }
+
+.line-1{
+    position: relative;
+    top: 50%;  
+    width: 24em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 180%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);    
+}
+
+/* Animation */
+.anim-typewriter{
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+             blinkTextCursor 500ms steps(44) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 24em;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
+
 
 /* Sections */
 
@@ -63,7 +133,6 @@ section{
     padding: 70px 0;
 
 }
-
 
 /* Pour les contenus simples sans flexbox */
 .content {
@@ -207,6 +276,14 @@ footer .rgbd a{
 /***********************************/
 /* Tableaux */
 
+#tables{
+    padding:30px;
+}
+
+#tables h2{
+    text-align: center;
+}
+
 #tables li{
     list-style-type: circle;
 }
@@ -220,12 +297,38 @@ footer .rgbd a{
     color: #888888;
 }
 
+#tables .dashboard-input{
+    padding: 8px;
+    border-radius: 5px;
+    border:2px solid #4b4b4b;
+    width: 300px;
+}
+
+#tables form{
+    margin: 30px 0;
+    text-align: center;
+}
+
+#tables .fa-trash, #tables .fa-glasses, #tables .fa-plus{
+    color: #fff;
+}
+
+
+
+#tables .fa-trash:hover, #tables .fa-glasses:hover, #tables .fa-plus:hover{
+    color: lightgrey;
+}
 
 /*******************************/
 /* Table */
 
 #table{
     padding: 30px 10px;
+}
+
+#table .title-center{
+    text-align:center;
+    font-size: 2em;
 }
 
 .nav-menu {
@@ -283,6 +386,22 @@ footer .rgbd a{
     padding-left: 10px;
 }
 
+#table h2{
+    text-align: center;
+}
+
+#table h4{
+    font-family: 'Yusei Magic', sans-serif;
+}
+
+#table .fa-user-plus{
+    color: #fff;
+}
+
+#table .fa-user-plus:hover{
+    color: lightgrey;
+}
+
 #table .list{
     background-color: #eeeeee;
     padding:10px;
@@ -295,3 +414,100 @@ footer .rgbd a{
     margin-bottom: 10px;
 }
 
+#table .size-btn{
+    width: 10%;
+}
+
+#table .dashboard-input{
+    padding: 8px;
+    border-radius: 5px;
+    border:2px solid #4b4b4b;
+    width: 200px;
+}
+
+#profile h1{
+    text-align: center;
+   
+}
+
+#profile span{
+    font-size: 1.1em;
+    color: #bd89de;
+}
+
+#profile span{
+    text-transform: capitalize;
+}
+
+#profile a{
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+}
+
+#profile img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+   display: block;
+   margin: 0 auto;
+   border-radius: 50%;
+   margin-bottom: 20px;
+}
+
+.reset-input {
+    padding: 8px;
+    border-radius: 5px;
+    border:2px solid #4b4b4b;
+    width: 300px;
+}
+
+#mid {
+    text-align:center;
+}
+
+.card-style {
+    background-color:rgba(95,251,225,0.2);
+    border-radius: 15px;
+    display:inline-block;
+    padding:15px;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.card-style .deletecard{
+    float: right;
+}
+
+.card-row{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.list-style {
+    background-color:rgba(134,168,231,1);
+    border-radius: 15px;
+    display:flex;
+    padding:15px;
+    margin:3px;
+    justify-content: space-between;
+}
+
+.fa-plus {
+    color: #fff;
+}
+
+.hover-light:hover {
+    color:lightgrey;
+}
+
+.alert {
+    text-align:center;
+}
+
+
+.table-form{
+    margin-bottom: 30px;
+}

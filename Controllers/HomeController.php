@@ -72,7 +72,9 @@ class HomeController extends Controller {
                   "message" => "Bienvenu"
               ]);
           } else {
-              $this->view('landing.php');
+              $this->view('landing.php', [
+                  "message" => "Vous êtes connecté"
+              ]);
           }
       }
 
@@ -90,7 +92,9 @@ class HomeController extends Controller {
         }
         if(isset($_SESSION["id"])) {
 
-            if(isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])){
+            if(isset($_POST["title"]) && isset($_POST["description"]) &&
+                !empty($_POST["title"])
+                && isset($_POST["id"])){
 
                 if($_POST["id"]===$_SESSION["id"]){
 
@@ -100,7 +104,8 @@ class HomeController extends Controller {
                     $newBoard = $board->findBoardById($idBoard);
 
                     $this->view("board.php", [
-                        "board" => $newBoard
+                        "board" => $newBoard,
+                        "message" => "Tableau crée"
                     ]);
                 }
                 else{
@@ -146,7 +151,7 @@ class HomeController extends Controller {
             }
 
             $listes=$arrayListe;
-            var_dump($listes);
+
 
             $this->view("board.php", [
                 "board" =>$selectBoard,
@@ -180,20 +185,47 @@ class HomeController extends Controller {
         }
 
         if (isset($_SESSION["id"])) {
-            if (isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["id"])) {
+            if (isset($_POST["title"]) && isset($_POST["description"]) &&
+                !empty($_POST["title"])
+                && isset($_POST["id"])) {
 
                     $liste = new Liste();
                     $liste->addListe($_POST["title"], $_POST["description"], $_POST["id"]);
 
                     $this->displayBoard($_POST["id"]);
             }
+            else{
+                $this->displayBoard($_POST["idBoard"]);
+            }
         } else {
             $this->view("login.php");
         }
     }
 
+    public function deleteListe($idListe){
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if(isset($_SESSION["id"])) {
+
+            $listeManager= new Liste();
+            $liste = $listeManager->findListeById($idListe);
+
+            $board =$liste["id_board"];
+
+            $listeManager->deleteListe($idListe);
+
+            $data["message"]="Liste supprimé";
+            $this->displayBoard($board);
+        }
+
+    }
+
 
     public function addUser(){
+
         if(!isset($_SESSION)){
             session_start();
         }
@@ -208,14 +240,19 @@ class HomeController extends Controller {
                     $board = new Board();
                     $board->addUser($addUser["id"],$_POST["idBoard"]);
 
-                  $data["message"]="Utilisateur ajouté";
+                    $data["message"]="Utilisateur ajouté";
+                    $this->displayBoard($_POST["idBoard"]);
                 }
 
                 else{
                     $this->displayBoard($_POST["idBoard"]);
                 }
             }
-            $this->displayBoard($_POST["idBoard"]);
+
+            else{
+                $this->displayBoard($_POST["idBoard"]);
+            }
+            
         }
         $this->view("connect");
     }
@@ -227,11 +264,16 @@ class HomeController extends Controller {
         }
 
         if (isset($_SESSION["id"])) {
-            if (isset($_POST["title"]) && isset($_POST["description"]) && isset($_POST["idListe"]) && isset($_POST["idBoard"])) {
+            if (isset($_POST["title"]) && isset($_POST["description"]) &&
+                !empty($_POST["title"])
+                && isset($_POST["idListe"]) && isset($_POST["idBoard"])) {
 
                 $cardManager = new Card();
                 $cardManager->addCard($_POST["title"], $_POST["description"], $_POST["idListe"]);
 
+                $this->displayBoard($_POST["idBoard"]);
+            }
+            else{
                 $this->displayBoard($_POST["idBoard"]);
             }
         } else {

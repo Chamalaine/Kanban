@@ -50,13 +50,25 @@ class Liste extends Model {
     }
 
     public function deleteListe($idListe){
+
         $req = $this->db()->prepare("
+        DELETE
+        FROM card
+        WHERE id_list = :idListe");
+
+        $req->execute([
+            ':idListe' => $idListe,
+        ]);
+
+        $this->closeConnection();
+
+        $req2 = $this->db()->prepare("
         DELETE 
         FROM {$this->getTable()}
         WHERE id = :idListe
         ");
 
-        $req->execute([
+        $req2->execute([
             ':idListe' => $idListe,
         ]);
 
